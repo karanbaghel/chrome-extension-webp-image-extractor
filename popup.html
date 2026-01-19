@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Downloader Pro</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="extension-wrapper">
+      <!-- Header -->
+      <div class="header">
+        <h1 class="title">Image Downloader Pro</h1>
+        <button class="close-btn" onclick="window.close()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Website Info -->
+      <div class="website-info">
+        <svg
+          class="globe-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <span id="currentUrl" class="website-url">Loading...</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-row">
+        <button id="scanBtn" class="btn btn-outline">
+          <svg
+            class="btn-icon"
+            width="18"
+            height="18"
+            viewBox="0 0 20 20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="9" cy="9" r="7" />
+            <path d="M15 15l4 4" />
+          </svg>
+          <span>Scan Page</span>
+        </button>
+        <button id="downloadBtn" class="btn btn-primary">
+          <svg
+            class="btn-icon"
+            width="18"
+            height="18"
+            viewBox="0 0 20 20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M17 13v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M10 3v11m0 0l-4-4m4 4l4-4"
+            />
+          </svg>
+          <span>Download ZIP</span>
+        </button>
+      </div>
+
+      <!-- Status Items -->
+      <div class="status-list">
+        <div id="statusFound" class="status-item hidden">
+          <svg
+            class="check-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="status-text"
+            ><strong id="imagesFound">32</strong> images found</span
+          >
+        </div>
+
+        <div id="statusFormats" class="status-item hidden">
+          <svg
+            class="check-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="status-text"
+            >Formats: <span id="formatsList">JPG, PNG, GIF</span></span
+          >
+        </div>
+
+        <div id="statusOutput" class="status-item hidden">
+          <svg
+            class="check-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="status-text">Output: WebP (.zip)</span>
+        </div>
+      </div>
+
+      <!-- Progress Section -->
+      <div id="progressSection" class="progress-section hidden">
+        <div class="progress-info">
+          <svg
+            class="clock-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="progress-text"
+            >Processing images...
+            <strong id="progressPercent">100%</strong></span
+          >
+        </div>
+        <div class="progress-bar-container">
+          <div id="progressBar" class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Download Ready -->
+      <div id="downloadReady" class="status-item hidden">
+        <svg
+          class="check-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <span class="status-text">Download <strong>ready</strong></span>
+      </div>
+    </div>
+
+    <script src="jszip.min.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
